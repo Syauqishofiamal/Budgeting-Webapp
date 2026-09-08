@@ -14,6 +14,7 @@ Next.js 16 · React 19 · PostgreSQL · TypeScript
 npm install
 cp .env.example .env.local     # then fill in the values (see below)
 npm run db:setup               # creates the tables
+npm run migrate                # applies schema changes (email accounts, etc.)
 npm run dev                    # http://localhost:3000
 ```
 
@@ -72,6 +73,36 @@ curl -H "Authorization: Bearer $CRON_SECRET" https://your-app.vercel.app/api/cro
 ```
 
 Your own account is a separate user row. Demo visitors cannot reach it.
+
+---
+
+## Accounts
+
+Anyone can create an account with an email and password from the login screen.
+Each account gets its own expenses, budget, XP, streak, badges and quests —
+nothing is shared between users except the demo sandbox.
+
+- **Passwords** are hashed with bcrypt at cost 12. The plain text is never stored.
+- **Login is throttled** to 8 attempts per email and per IP every 15 minutes,
+  signup to 5 per hour, so the login form cannot be brute-forced.
+- **Wrong password and unknown email return the same message**, and an unknown
+  email still pays the full bcrypt cost, so the response cannot be used to work
+  out which addresses are registered.
+- **Reset links are single-use** and expire after an hour. Only a SHA-256 hash
+  of each token is stored, so a database leak cannot be replayed to seize an
+  account.
+
+The original `OWNER_USERNAME` / `OWNER_PASSWORD_HASH` login still works and
+keeps its existing data.
+
+### Sending real email
+
+Signup and login work without any mail provider. Verification and reset links
+are printed to the server log instead of sent, which is fine for development.
+
+To send real email, sign up at [Resend](https://resend.com), verify a sending
+domain, then set `RESEND_API_KEY` and `EMAIL_FROM`. No code changes are needed.
+Until then, password reset requires reading the link from your server logs.
 
 ---
 

@@ -18,6 +18,11 @@ function secret(): Uint8Array {
 
 export interface Session { userId: string; isDemo: boolean; }
 
+/** True when the id was minted by createAccount (as opposed to owner/demo). */
+export function isRegisteredId(userId: string): boolean {
+  return userId.startsWith('u_');
+}
+
 export async function createSession(userId: string, isDemo: boolean): Promise<void> {
   const token = await new SignJWT({ userId, isDemo })
     .setProtectedHeader({ alg: 'HS256' })
@@ -49,7 +54,13 @@ export async function destroySession(): Promise<void> {
   (await cookies()).delete(COOKIE);
 }
 
-/** Constant-time-ish owner check via bcrypt. */
+/**
+ * Legacy single-owner login via environment variables.
+ *
+ * Kept so the original OWNER_USERNAME/OWNER_PASSWORD_HASH account still works
+ * after the move to real email accounts — its data is attached to the 'owner'
+ * user id. New accounts go through lib/accounts.ts instead.
+ */
 export async function verifyOwner(username: string, password: string): Promise<boolean> {
   const expectedUser = process.env.OWNER_USERNAME;
   const hash = process.env.OWNER_PASSWORD_HASH;

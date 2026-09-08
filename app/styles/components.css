@@ -343,3 +343,30 @@
 /* Slightly tighter keys so all four rows clear the dock. */
 .amount-zone .key { padding: 9px 0; font-size: 21px; }
 .amount-zone { padding: 8px 10px 10px; }
+
+/* ── Auth screens ───────────────────────────────────────────────────────── */
+.auth-title {
+  font-size: 17px; font-weight: 700; margin-bottom: 14px; letter-spacing: -.01em;
+}
+.auth-error {
+  font-size: 13px; margin: 0 0 12px; padding: 9px 11px; border-radius: 10px;
+  /* Readable and clearly a problem, without the alarm-red the app avoids. */
+  background: color-mix(in srgb, var(--flame) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--flame) 28%, transparent);
+  color: var(--flame);
+}
+.auth-notice {
+  font-size: 13px; margin: 0 0 12px; padding: 9px 11px; border-radius: 10px;
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  color: var(--accent);
+}
+.auth-links {
+  display: flex; flex-wrap: wrap; justify-content: space-between;
+  gap: 8px; margin-top: 14px;
+}
+.auth-links button {
+  min-height: 34px; padding: 4px 2px;
+  font-size: 13px; font-weight: 600; color: var(--text-dim);
+}
+.auth-links button:active { color: var(--accent); }
