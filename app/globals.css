@@ -1,0 +1,5 @@
+/* Coffer stylesheet entry point.
+   Split for readability: tokens and reset in base, everything else in
+   components. Import order matters — tokens must be defined first. */
+@import './styles/base.css';
+@import './styles/components.css';
