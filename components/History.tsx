@@ -35,7 +35,7 @@ export default function History({ today, currency }: { today: string; currency: 
 
   return (
     <div className="screen">
-      <div className="screen-title">History</div>
+      <div className="page-title">History</div>
 
       <div className="row" style={{ marginBottom: 10 }}>
         <select className="input" value={month} onChange={(e) => setMonth(e.target.value)}>
@@ -49,14 +49,12 @@ export default function History({ today, currency }: { today: string; currency: 
       </div>
 
       <div className="chips" style={{ marginBottom: 12 }}>
-        <button className="chip" aria-pressed={category === null}
-                style={category === null ? { borderColor: 'var(--accent)',
-                  background: 'var(--accent-soft)', color: 'var(--accent)' } : undefined}
+        <button className={`chip ${category === null ? 'chip-selected' : ''}`}
+                aria-pressed={category === null}
                 onClick={() => setCategory(null)}>All</button>
         {CATEGORIES.map((c) => (
-          <button key={c.slug} className="chip" aria-pressed={category === c.slug}
-                  style={category === c.slug ? { borderColor: 'var(--accent)',
-                    background: 'var(--accent-soft)', color: 'var(--accent)' } : undefined}
+          <button key={c.slug} className={`chip ${category === c.slug ? 'chip-selected' : ''}`}
+                  aria-pressed={category === c.slug}
                   onClick={() => setCategory(c.slug)}>
             {c.icon} {c.label}
           </button>

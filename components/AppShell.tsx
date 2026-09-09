@@ -12,14 +12,14 @@ import type { AppState, Expense, LogResponse } from '@/lib/types';
 type Tab = 'add' | 'today' | 'history' | 'more';
 
 const TABS: { id: Tab; icon: string; label: string }[] = [
+  { id: 'today',   icon: '🏠', label: 'Home' },
   { id: 'add',     icon: '➕', label: 'Add' },
-  { id: 'today',   icon: '📊', label: 'Today' },
-  { id: 'history', icon: '🗓', label: 'History' },
-  { id: 'more',    icon: '⚙️', label: 'More' },
+  { id: 'history', icon: '📋', label: 'History' },
+  { id: 'more',    icon: '⚙️', label: 'Settings' },
 ];
 
 export default function AppShell({ isDemo }: { isDemo: boolean }) {
-  const [tab, setTab] = useState<Tab>('add');
+  const [tab, setTab] = useState<Tab>('today');
   const [state, setState] = useState<AppState | null>(null);
   const [toast, setToast] = useState<(Feedback & { expenseId: number | null }) | null>(null);
   const [celebration, setCelebration] = useState<Feedback['celebrate']>(null);

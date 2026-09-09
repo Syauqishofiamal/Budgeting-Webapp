@@ -92,17 +92,26 @@ export default function More({
         </div>
         {savedMsg && <p className="tiny" style={{ color: 'var(--accent)' }}>{savedMsg}</p>}
 
-        <div className="spread" style={{ marginTop: 14 }}>
+      </div>
+
+      {/* ── Preferences ── */}
+      <div className="card" style={{ marginBottom: 12 }}>
+        <div className="screen-title" style={{ margin: '0 0 4px' }}>Preferences</div>
+        <div className="setting-row">
           <span className="small">Haptic feedback</span>
-          <input type="checkbox" checked={state.settings.hapticsEnabled}
-                 onChange={(e) => toggle('hapticsEnabled', e.target.checked)}
-                 style={{ width: 20, height: 20 }} />
+          <button type="button" role="switch"
+                  aria-checked={state.settings.hapticsEnabled}
+                  aria-label="Haptic feedback"
+                  className="switch"
+                  onClick={() => toggle('hapticsEnabled', !state.settings.hapticsEnabled)} />
         </div>
-        <div className="spread" style={{ marginTop: 10 }}>
+        <div className="setting-row">
           <span className="small">Sound</span>
-          <input type="checkbox" checked={state.settings.soundEnabled}
-                 onChange={(e) => toggle('soundEnabled', e.target.checked)}
-                 style={{ width: 20, height: 20 }} />
+          <button type="button" role="switch"
+                  aria-checked={state.settings.soundEnabled}
+                  aria-label="Sound"
+                  className="switch"
+                  onClick={() => toggle('soundEnabled', !state.settings.soundEnabled)} />
         </div>
       </div>
 

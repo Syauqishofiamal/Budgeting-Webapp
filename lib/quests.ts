@@ -34,10 +34,16 @@ export async function ensureWeeklyQuests(userId: string, today: string): Promise
   const cookedTarget = Math.max(2, Math.min(5, Math.round(cooked.n / 4) + 1));
   const transportTarget = transport.avg > 0 ? Math.round(transport.avg * 1.1) : 60;
 
+  // Currency in the title makes the transport target unambiguous at a glance.
+  const currencyRows = (await sql`
+    SELECT currency FROM settings WHERE user_id = ${userId}`) as unknown as { currency: string }[];
+  const cur = currencyRows[0]?.currency ?? 'MYR';
+
   const quests = [
     { slug: 'log_days',  title: 'Log on 5 days this week',                target: 5 },
     { slug: 'cook',      title: `Log ${cookedTarget} home-cooked meals`,  target: cookedTarget },
-    { slug: 'transport', title: `Keep transport under ${transportTarget}`, target: transportTarget },
+    { slug: 'transport', title: `Keep transport under ${cur} ${transportTarget}`,
+      target: transportTarget },
   ];
 
   for (const q of quests) {

@@ -1,8 +1,42 @@
 /* ── Coffer: design tokens, reset, and typography ────────────────────────────
    Component styles live in ./components.css, imported by globals.css. */
 :root {
-  color-scheme: light dark;
+  /* Dark by default: this app is opened at night more than at noon, and the
+     near-black ground makes the green accent and the numbers carry the screen. */
+  color-scheme: dark;
 
+  --bg:        #0a0a0a;
+  --surface:   #141414;
+  --surface-2: #1e1e1e;
+  --border:    #262626;
+  --text:      #f5f5f5;
+  --text-dim:  #a1a1a1;
+  --text-faint:#6e6e6e;
+
+  --accent:      #6ee787;   /* bright green: the one saturated colour */
+  --accent-dim:  #4ade80;
+  --accent-soft: #10241a;
+  --accent-text: #06140b;   /* near-black text on the green button */
+  --gold:        #e3b341;   /* XP */
+  --gold-soft:   #241d0c;
+  --flame:       #ff7b52;   /* streak */
+
+  --radius: 14px;
+  --radius-lg: 20px;
+  --shadow: 0 1px 2px rgba(0,0,0,.5);
+  --shadow-lift: 0 8px 28px rgba(0,0,0,.6);
+
+  --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter,
+          Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Money and counters use tabular monospace so digits never shift width. */
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
+
+/* Light theme only when the viewer explicitly asks for it. */
+:root[data-theme="light"] {
+  color-scheme: light;
   --bg:        #f7f6f3;
   --surface:   #ffffff;
   --surface-2: #f0eee9;
@@ -10,45 +44,15 @@
   --text:      #1c1a17;
   --text-dim:  #6b665e;
   --text-faint:#9a948a;
-
-  --accent:      #4f7a5b;   /* calm green: growth, not alarm */
-  --accent-soft: #e3ede5;
+  --accent:      #2f9e51;
+  --accent-dim:  #278544;
+  --accent-soft: #e3f2e7;
   --accent-text: #ffffff;
-  --gold:        #b8873b;   /* XP / badges */
+  --gold:        #b8873b;
   --gold-soft:   #f5ebd8;
-  --flame:       #c4622d;   /* streak */
-
-  --radius: 14px;
-  --radius-lg: 20px;
+  --flame:       #c4622d;
   --shadow: 0 1px 2px rgba(28,26,23,.05), 0 4px 16px rgba(28,26,23,.05);
   --shadow-lift: 0 4px 12px rgba(28,26,23,.10), 0 12px 32px rgba(28,26,23,.10);
-
-  --font: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter,
-          Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
-
-  /* Safe-area aware bottom padding for thumb-reachable controls. */
-  --safe-b: env(safe-area-inset-bottom, 0px);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg:        #16150f;
-    --surface:   #201e18;
-    --surface-2: #2a2721;
-    --border:    #373329;
-    --text:      #f2efe8;
-    --text-dim:  #a8a296;
-    --text-faint:#7b7568;
-    --accent:      #6f9d7c;
-    --accent-soft: #23342a;
-    --accent-text: #10160f;
-    --gold:        #d9ad5e;
-    --gold-soft:   #33291a;
-    --flame:       #e07a42;
-    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 16px rgba(0,0,0,.3);
-    --shadow-lift: 0 4px 12px rgba(0,0,0,.5), 0 12px 32px rgba(0,0,0,.4);
-  }
 }
 
 * { box-sizing: border-box; }

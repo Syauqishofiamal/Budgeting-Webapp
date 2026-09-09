@@ -30,7 +30,12 @@
 .faint { color: var(--text-faint); }
 .tiny { font-size: 12px; }
 .small { font-size: 14px; }
-.num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+.num {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -.01em;
+}
 
 /* ── Tab bar ────────────────────────────────────────────────────────────── */
 .tabs {
@@ -94,8 +99,8 @@
 /* ── Keypad ─────────────────────────────────────────────────────────────── */
 .amount-display {
   text-align: center; padding: 6px 0 2px;
-  font-size: 38px; font-weight: 700; letter-spacing: -.02em;
-  font-variant-numeric: tabular-nums; line-height: 1.1;
+  font-size: 38px; font-weight: 700; letter-spacing: .02em;
+  font-family: var(--mono); font-variant-numeric: tabular-nums; line-height: 1.1;
 }
 .amount-display .cur { font-size: 20px; color: var(--text-faint); margin-right: 6px; font-weight: 600; }
 .amount-display.empty { color: var(--text-faint); }
@@ -111,11 +116,13 @@
 
 .btn {
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 13px; border-radius: var(--radius);
+  width: 100%; padding: 14px; border-radius: var(--radius);
   font-size: 17px; font-weight: 700;
-  background: var(--accent); color: var(--accent-text);
-  transition: transform .12s, opacity .15s;
+  background: linear-gradient(180deg, var(--accent), var(--accent-dim));
+  color: var(--accent-text);
+  transition: transform .12s, opacity .15s, filter .15s;
 }
+.btn:active { filter: brightness(.92); }
 .btn:active { transform: scale(.98); }
 .btn:disabled { opacity: .4; }
 .btn-ghost {
@@ -141,7 +148,10 @@
 }
 
 .stat { display: flex; flex-direction: column; gap: 1px; }
-.stat-value { font-size: 21px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stat-value {
+  font-size: 26px; font-weight: 700; letter-spacing: -.02em;
+  font-family: var(--mono); font-variant-numeric: tabular-nums;
+}
 .stat-label { font-size: 11px; color: var(--text-faint); font-weight: 600;
   letter-spacing: .04em; text-transform: uppercase; }
 
@@ -171,7 +181,9 @@
   font-size: 13px; color: var(--text-faint);
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
-.entry-amt { font-weight: 700; font-variant-numeric: tabular-nums; }
+.entry-amt {
+  font-weight: 700; font-family: var(--mono); font-variant-numeric: tabular-nums;
+}
 .icon-btn {
   width: 36px; height: 36px; min-height: 36px; display: grid; place-items: center;
   border-radius: 10px; color: var(--text-faint); font-size: 15px;
@@ -370,3 +382,68 @@
   font-size: 13px; font-weight: 600; color: var(--text-dim);
 }
 .auth-links button:active { color: var(--accent); }
+
+/* ── Home header ────────────────────────────────────────────────────────── */
+.home-head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 12px; margin-bottom: 14px;
+}
+.home-month {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text-faint);
+}
+.home-greeting {
+  font-size: 26px; font-weight: 700; letter-spacing: -.02em; margin-top: 2px;
+}
+.level-dot {
+  flex: none; width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--accent-soft);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--accent); font-weight: 700; font-size: 14px;
+  font-family: var(--mono);
+}
+
+/* Level and streak sit side by side under the budget card. */
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+
+/* ── Toggle switch ──────────────────────────────────────────────────────── */
+.switch {
+  position: relative; flex: none;
+  width: 50px; height: 30px; min-height: 30px; border-radius: 999px;
+  background: var(--surface-2); border: 1px solid var(--border);
+  transition: background .18s, border-color .18s;
+}
+.switch[aria-checked="true"] {
+  background: var(--accent); border-color: var(--accent);
+}
+.switch::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--text);
+  transition: transform .18s cubic-bezier(.2,.9,.3,1.2), background .18s;
+}
+.switch[aria-checked="true"]::after {
+  transform: translateX(20px); background: var(--accent-text);
+}
+
+.setting-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--border);
+}
+.setting-row:last-child { border-bottom: none; }
+
+/* ── History header ─────────────────────────────────────────────────────── */
+.page-title {
+  font-size: 26px; font-weight: 700; letter-spacing: -.02em; margin-bottom: 12px;
+}
+
+/* Export links are anchors so the browser handles the download; strip the
+   underline so they read as the buttons they look like. */
+a.btn, a.btn-ghost { text-decoration: none; }
+
+/* Label above the keypad total, matching the rest of the section headers. */
+.amount-label {
+  text-align: center; font-size: 11px; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--text-faint);
+}
