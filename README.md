@@ -1,10 +1,20 @@
 # Coffer
 
 A gamified personal expense tracker. Built for one thing: logging a purchase in
-under five seconds, three taps, on a phone — and making you want to come back
-tomorrow.
+under five seconds, three taps on a phone — and making you want to come back
+tomorrow. On a laptop you type the amount and press Enter instead.
 
 Next.js 16 · React 19 · PostgreSQL · TypeScript
+
+**[Try the live demo →](https://budgeting-webapp.vercel.app)** — no account needed.
+
+### Background reading
+
+- **[DECISIONS.md](DECISIONS.md)** — why this is cloud Postgres rather than the
+  SQLite the brief asked for, why recurring bills never auto-log, and what would
+  most likely make someone abandon the app in week three.
+- **[gamified-budget-app-prompt.md](gamified-budget-app-prompt.md)** — the
+  original brief this was built against.
 
 ---
 
@@ -219,6 +229,9 @@ Checked against a real browser at 390px and a live Postgres database:
 
 - Logging a Transport expense takes three taps with today's date; nothing is
   typed but the amount.
+- On a desktop the amount field focuses itself when a category is picked, so the
+  whole entry is keyboard-only: type the number, press Enter. On touch devices
+  the field stays read-only so the OS keyboard never covers the keypad.
 - Tapping a remembered-amount chip loads the keypad and saves nothing.
   Transport shows three chips; Food → Delivery shows a single `~` chip.
 - Saving then hitting Undo leaves the database, XP total, streak, and badges
