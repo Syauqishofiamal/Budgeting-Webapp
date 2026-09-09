@@ -158,7 +158,9 @@ export default function QuickAdd({ state, onSave, onNoSpend }: Props) {
 
       {/* ── Amount + keypad ── */}
       <div className="amount-zone">
-        <Keypad value={amount} onChange={setAmount} currency={state.settings.currency} />
+        <Keypad value={amount} onChange={setAmount} currency={state.settings.currency}
+                onSubmit={save}
+                focusKey={category ? `${category}:${subtype ?? ''}` : ''} />
       </div>
 
       {/* Sticky so Save is always in reach, never scrolled under the tab bar. */}
